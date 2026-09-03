@@ -157,9 +157,13 @@
   <div class="card">
     <h2><span class="dot" style="background: var(--mint);"></span>Requirements</h2>
     <ul>
-      <li>A Mac with <code>python3</code> 3.9+ (already on it by default) and Terminal access.</li>
+      <li>A Mac with <code>python3</code> 3.9+ (already on it by default) and Terminal access. <code>run.sh</code> checks for this and tells you exactly how to install it if it's missing — it won't install Python itself.</li>
       <li>Your own Webex/Cisco login. That's it — no shared secrets, no IT ticket.</li>
     </ul>
+    <div class="note">
+      <span class="icon">✅</span>
+      <span>Everything else — the private virtual environment and the one Python dependency (<code>requests</code>) — is installed automatically by <code>run.sh</code> on first run. Nothing to <code>pip install</code> by hand.</span>
+    </div>
   </div>
 
   <div class="card">
