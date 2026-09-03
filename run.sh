@@ -18,14 +18,14 @@ PYTHON_VERSION="3.12"
 
 if ! command -v uv >/dev/null 2>&1; then
     echo "uv (the Python env manager this uses) was not found on this Mac."
-    if command -v brew >/dev/null 2>&1; then
-        echo "Installing uv via Homebrew ..."
-        brew install uv
-    else
-        echo "Installing uv via its official installer ..."
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        export PATH="$HOME/.local/bin:$PATH"
-    fi
+    echo "Installing uv via its official installer (a single prebuilt binary, no Xcode/Rust/Homebrew build chain needed) ..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+if ! command -v uv >/dev/null 2>&1 && command -v brew >/dev/null 2>&1; then
+    echo "Official installer didn't put uv on PATH, trying Homebrew instead ..."
+    brew install uv
 fi
 
 if ! command -v uv >/dev/null 2>&1; then
