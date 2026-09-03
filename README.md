@@ -26,11 +26,12 @@ cd webex-notifier
 ```
 
 That's the only command anyone needs to run. `run.sh` needs nothing
-pre-installed except macOS's own `python3` (3.9+) — it creates a private
-virtualenv at `~/.webex_notifier/venv`, installs this package and its one
-dependency into it (falling back to the public PyPI if a corporate package
-mirror rejects anonymous installs), and then launches the CLI. It's safe to
-re-run any time; it no-ops once already installed.
+pre-installed — if `python3` 3.9+ isn't already on the machine, it offers to
+install it via Homebrew (installing Homebrew first if that's missing too).
+It then creates a private virtualenv at `~/.webex_notifier/venv`, installs
+this package and its one dependency into it (falling back to the public
+PyPI if a corporate package mirror rejects anonymous installs), and launches
+the CLI. It's safe to re-run any time; it no-ops once already installed.
 
 With no arguments, the CLI figures out what's missing and walks you through
 it interactively — no README reading required:

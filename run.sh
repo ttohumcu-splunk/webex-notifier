@@ -8,14 +8,37 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="$HOME/.webex_notifier/venv"
 
-if ! command -v python3 >/dev/null 2>&1; then
-    echo "python3 not found on this Mac." >&2
-    echo "Install it first: run 'xcode-select --install' (or install from python.org), then re-run this script." >&2
-    exit 1
+python_ok() {
+    command -v python3 >/dev/null 2>&1 && \
+        python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3, 9) else 1)'
+}
+
+if ! python_ok; then
+    echo "python3 3.9+ was not found on this Mac."
+    read -r -p "Install it now via Homebrew? [y/N] " reply || reply=""
+    case "$reply" in
+        [yY]|[yY][eE][sS])
+            if ! command -v brew >/dev/null 2>&1; then
+                echo "Homebrew not found either -- installing Homebrew first ..."
+                NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+                if [ -x /opt/homebrew/bin/brew ]; then
+                    eval "$(/opt/homebrew/bin/brew shellenv)"
+                elif [ -x /usr/local/bin/brew ]; then
+                    eval "$(/usr/local/bin/brew shellenv)"
+                fi
+            fi
+            echo "Installing python3 via Homebrew ..."
+            brew install python3
+            ;;
+        *)
+            echo "Install it yourself: run 'xcode-select --install' (or install from python.org), then re-run this script." >&2
+            exit 1
+            ;;
+    esac
 fi
 
-if ! python3 -c 'import sys; sys.exit(0 if sys.version_info >= (3, 9) else 1)'; then
-    echo "python3 is too old (need 3.9+). Install a newer Python (e.g. from python.org) and re-run this script." >&2
+if ! python_ok; then
+    echo "python3 3.9+ still isn't available after install. Install it manually and re-run this script." >&2
     exit 1
 fi
 
