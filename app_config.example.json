@@ -1,0 +1,6 @@
+{
+  "webex_client_id": "REPLACE_ME",
+  "webex_client_secret": "REPLACE_ME",
+  "slack_client_id": "REPLACE_ME",
+  "slack_client_secret": "REPLACE_ME"
+}

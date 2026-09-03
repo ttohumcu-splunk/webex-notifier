@@ -1,0 +1,18 @@
+[project]
+name = "webex-notifier"
+version = "0.1.0"
+description = "Pops a macOS notification when you get a Webex direct message or @mention."
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.31",
+]
+
+[project.scripts]
+webex-notifier = "webex_notifier.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["webex_notifier"]

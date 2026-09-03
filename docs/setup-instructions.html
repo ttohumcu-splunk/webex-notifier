@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: Letter; margin: 0.6in; }
+  body { font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 10.5pt; color: #1a1a1a; line-height: 1.35; }
+  h1 { font-size: 17pt; margin: 0 0 2px 0; }
+  .subtitle { color: #555; margin: 0 0 14px 0; font-size: 10pt; }
+  h2 { font-size: 11.5pt; margin: 14px 0 4px 0; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
+  ol, ul { margin: 4px 0 4px 18px; padding: 0; }
+  li { margin-bottom: 3px; }
+  code, .code { font-family: "SF Mono", Menlo, Consolas, monospace; background: #f2f2f2; padding: 1px 4px; border-radius: 3px; font-size: 9.5pt; }
+  pre { background: #f2f2f2; padding: 8px 10px; border-radius: 5px; font-size: 9.5pt; margin: 4px 0; overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; margin: 4px 0; }
+  td { padding: 2px 6px 2px 0; vertical-align: top; font-size: 9.8pt; }
+  td.cmd { font-family: "SF Mono", Menlo, Consolas, monospace; white-space: nowrap; color: #0b5fae; }
+  .note { background: #fff8e1; border: 1px solid #f0dfa0; border-radius: 5px; padding: 6px 9px; margin: 6px 0; font-size: 9.8pt; }
+  .cols { display: flex; gap: 24px; }
+  .cols > div { flex: 1; }
+</style>
+</head>
+<body>
+
+<h1>webex-notifier</h1>
+<div class="subtitle">Pops a native macOS notification whenever you get a Webex DM or @mention. No Slack, no admin approval, no app to keep open.</div>
+
+<h2>Requirements</h2>
+<ul>
+  <li>A Mac with <code>python3</code> 3.9+ (already on it by default) and Terminal access.</li>
+  <li>Your own Webex/Cisco login. That's it — no shared secrets, no IT ticket.</li>
+</ul>
+
+<h2>Install (about 2 minutes, one time)</h2>
+<ol>
+  <li>Copy or clone this folder anywhere, then in Terminal: <code>cd webex-notifier</code></li>
+  <li>Run: <code>./run.sh</code></li>
+  <li>It sets itself up automatically and interactively — just follow the prompts:
+    <ul>
+      <li>Opens developer.webex.com to register <strong>your own personal</strong> Webex Integration (~30 sec: name it anything, set Redirect URI to exactly <code>http://localhost:8734/</code>, check the 3 scopes shown on screen, paste back the Client ID/Secret it gives you).</li>
+      <li>Opens a browser to sign in to Webex with your Cisco email.</li>
+      <li>Fires a test notification, then installs a personal cron job that checks every minute.</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="note">
+  <strong>No banner on the test notification?</strong> Open System Settings &rarr; Notifications &rarr; find <strong>"Script Editor"</strong> &rarr; turn on <strong>Allow Notifications</strong> and set style to Banners or Alerts (not None). Then run <code>./run.sh notify-test</code> again.
+</div>
+
+<h2>Everyday commands</h2>
+<table>
+  <tr><td class="cmd">./run.sh status</td><td>Show auth + cron state</td></tr>
+  <tr><td class="cmd">./run.sh doctor</td><td>Diagnose and fix problems interactively</td></tr>
+  <tr><td class="cmd">./run.sh check</td><td>Run one check right now (don't wait for cron)</td></tr>
+  <tr><td class="cmd">./run.sh notify-test</td><td>Fire a one-off test notification</td></tr>
+  <tr><td class="cmd">./run.sh cron-uninstall</td><td>Stop and remove the background check</td></tr>
+</table>
+
+<h2>Troubleshooting OAuth errors</h2>
+<ul>
+  <li><strong>"We've encountered an error. Try again later."</strong> &mdash; almost always a redirect URI mismatch. Re-open your integration at developer.webex.com/my-apps and confirm the Redirect URI is <em>exactly</em> <code>http://localhost:8734/</code> (note the trailing slash), then save and retry.</li>
+  <li><strong>"The requested scope is invalid."</strong> &mdash; go back to the integration's Scopes section and make sure all three are checked: <code>spark:messages_read</code>, <code>spark:rooms_read</code>, <code>spark:people_read</code>. Save, then retry.</li>
+</ul>
+
+<div class="note">
+  Each person registers their own Webex Integration and keeps their own tokens under <code>~/.webex_notifier/</code> &mdash; nothing here is shared between colleagues, and there's nothing sensitive in this folder to protect when you pass it along.
+</div>
+
+</body>
+</html>
