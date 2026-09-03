@@ -1,71 +1,213 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
+<title>webex-notifier — Setup</title>
 <style>
-  @page { size: Letter; margin: 0.6in; }
-  body { font-family: -apple-system, Helvetica, Arial, sans-serif; font-size: 10.5pt; color: #1a1a1a; line-height: 1.35; }
-  h1 { font-size: 17pt; margin: 0 0 2px 0; }
-  .subtitle { color: #555; margin: 0 0 14px 0; font-size: 10pt; }
-  h2 { font-size: 11.5pt; margin: 14px 0 4px 0; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
-  ol, ul { margin: 4px 0 4px 18px; padding: 0; }
-  li { margin-bottom: 3px; }
-  code, .code { font-family: "SF Mono", Menlo, Consolas, monospace; background: #f2f2f2; padding: 1px 4px; border-radius: 3px; font-size: 9.5pt; }
-  pre { background: #f2f2f2; padding: 8px 10px; border-radius: 5px; font-size: 9.5pt; margin: 4px 0; overflow-x: auto; }
-  table { border-collapse: collapse; width: 100%; margin: 4px 0; }
-  td { padding: 2px 6px 2px 0; vertical-align: top; font-size: 9.8pt; }
-  td.cmd { font-family: "SF Mono", Menlo, Consolas, monospace; white-space: nowrap; color: #0b5fae; }
-  .note { background: #fff8e1; border: 1px solid #f0dfa0; border-radius: 5px; padding: 6px 9px; margin: 6px 0; font-size: 9.8pt; }
-  .cols { display: flex; gap: 24px; }
-  .cols > div { flex: 1; }
+  :root {
+    --bg: #0b1120;
+    --panel: #161e2f;
+    --border: #2d3a52;
+    --text: #e5e9f0;
+    --text-dim: #94a3b8;
+    --blue: #60a5fa;
+    --mint: #6ee7b7;
+    --amber: #fbbf24;
+    --pink: #e879f9;
+  }
+  * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    padding: 40px 20px 60px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  h1 { text-align: center; font-size: 30px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .subtitle { text-align: center; color: var(--text-dim); font-size: 15px; margin: 0 0 20px; }
+
+  .badge-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+  .badge {
+    display: inline-flex; align-items: center;
+    padding: 6px 14px; border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-dim);
+    font-size: 12px; font-weight: 700;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .card h2 {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--text-dim); margin: 0 0 14px;
+  }
+  .card h2 .dot { width: 8px; height: 8px; border-radius: 999px; flex: 0 0 auto; }
+
+  ul, ol { margin: 0; padding-left: 20px; }
+  li { margin-bottom: 8px; line-height: 1.5; font-size: 14px; }
+  li:last-child { margin-bottom: 0; }
+  ul.sub { margin-top: 8px; padding-left: 18px; }
+  ul.sub li { margin-bottom: 6px; font-size: 13.5px; color: var(--text-dim); }
+
+  code {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    background: rgba(255,255,255,0.08);
+    color: var(--mint);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.88em;
+  }
+
+  .step-list { list-style: none; padding-left: 0; counter-reset: step; }
+  .step-list > li { counter-increment: step; position: relative; padding-left: 34px; margin-bottom: 14px; }
+  .step-list > li:last-child { margin-bottom: 0; }
+  .step-list > li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 22px; height: 22px; border-radius: 999px;
+    background: rgba(96,165,250,0.15); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800;
+  }
+
+  .note {
+    display: flex; gap: 10px;
+    border-left: 3px solid var(--amber);
+    background: rgba(251,191,36,0.08);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text);
+    margin-top: 14px;
+  }
+  .note .icon { flex: 0 0 auto; }
+  .note strong { color: var(--amber); }
+
+  table { width: 100%; border-collapse: collapse; }
+  tr { border-bottom: 1px solid var(--border); }
+  tr:last-child { border-bottom: none; }
+  td { padding: 9px 0; font-size: 13.5px; vertical-align: top; }
+  td.cmd {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    color: var(--blue);
+    white-space: nowrap;
+    padding-right: 18px;
+    font-size: 13px;
+  }
+  td.desc { color: var(--text-dim); }
+
+  .err { color: var(--pink); font-weight: 700; }
+
+  .footer-note {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12.5px;
+    margin-top: 24px;
+    padding: 0 20px;
+    line-height: 1.5;
+  }
+
+  .download-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 999px;
+    border: 1px solid var(--blue);
+    background: rgba(96,165,250,0.12);
+    color: var(--blue);
+    font-size: 14px; font-weight: 800;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .download-btn:hover { background: rgba(96,165,250,0.2); transform: translateY(-1px); }
+
+  .author-note {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12px;
+    margin-top: 32px;
+  }
+  .author-note a { color: var(--text-dim); text-decoration: none; }
+  .author-note a:hover { color: var(--text); text-decoration: underline; }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<h1>webex-notifier</h1>
-<div class="subtitle">Pops a native macOS notification whenever you get a Webex DM or @mention. No Slack, no admin approval, no app to keep open.</div>
+  <h1>webex-notifier</h1>
+  <div class="subtitle">Native macOS notifications for Webex DMs &amp; @mentions — no Slack, no admin approval, nothing to keep open.</div>
 
-<h2>Requirements</h2>
-<ul>
-  <li>A Mac with <code>python3</code> 3.9+ (already on it by default) and Terminal access.</li>
-  <li>Your own Webex/Cisco login. That's it — no shared secrets, no IT ticket.</li>
-</ul>
+  <div class="badge-row">
+    <span class="badge">🍏 macOS only</span>
+    <span class="badge">⏱ ~2 min setup</span>
+    <span class="badge">🔒 no shared secrets</span>
+  </div>
 
-<h2>Install (about 2 minutes, one time)</h2>
-<ol>
-  <li>Copy or clone this folder anywhere, then in Terminal: <code>cd webex-notifier</code></li>
-  <li>Run: <code>./run.sh</code></li>
-  <li>It sets itself up automatically and interactively — just follow the prompts:
+  <div style="text-align:center; margin-bottom: 28px;">
+    <a class="download-btn" href="webex-notifier.zip" download>⬇ Download webex-notifier.zip</a>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background: var(--mint);"></span>Requirements</h2>
     <ul>
-      <li>Opens developer.webex.com to register <strong>your own personal</strong> Webex Integration (~30 sec: name it anything, set Redirect URI to exactly <code>http://localhost:8734/</code>, check the 3 scopes shown on screen, paste back the Client ID/Secret it gives you).</li>
-      <li>Opens a browser to sign in to Webex with your Cisco email.</li>
-      <li>Fires a test notification, then installs a personal cron job that checks every minute.</li>
+      <li>A Mac with <code>python3</code> 3.9+ (already on it by default) and Terminal access.</li>
+      <li>Your own Webex/Cisco login. That's it — no shared secrets, no IT ticket.</li>
     </ul>
-  </li>
-</ol>
+  </div>
 
-<div class="note">
-  <strong>No banner on the test notification?</strong> Open System Settings &rarr; Notifications &rarr; find <strong>"Script Editor"</strong> &rarr; turn on <strong>Allow Notifications</strong> and set style to Banners or Alerts (not None). Then run <code>./run.sh notify-test</code> again.
+  <div class="card">
+    <h2><span class="dot" style="background: var(--blue);"></span>Install</h2>
+    <ol class="step-list">
+      <li>Copy or clone this folder anywhere, then in Terminal: <code>cd webex-notifier</code></li>
+      <li>Run: <code>./run.sh</code></li>
+      <li>It sets itself up automatically and interactively — just follow the prompts:
+        <ul class="sub">
+          <li>Opens developer.webex.com to register <strong>your own personal</strong> Webex Integration (~30 sec: name it anything, set Redirect URI to exactly <code>http://localhost:8734/</code>, check the 3 scopes shown on screen, paste back the Client ID/Secret it gives you).</li>
+          <li>Opens a browser to sign in to Webex with your Cisco email.</li>
+          <li>Fires a test notification, then installs a personal cron job that checks every minute.</li>
+        </ul>
+      </li>
+    </ol>
+    <div class="note">
+      <span class="icon">💡</span>
+      <span><strong>No banner on the test notification?</strong> Open System Settings → Notifications → find <strong>"Script Editor"</strong> → turn on <strong>Allow Notifications</strong> and set style to Banners or Alerts (not None). Then run <code>./run.sh notify-test</code> again.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background: var(--pink);"></span>Everyday commands</h2>
+    <table>
+      <tr><td class="cmd">./run.sh status</td><td class="desc">Show auth + cron state</td></tr>
+      <tr><td class="cmd">./run.sh doctor</td><td class="desc">Diagnose and fix problems interactively</td></tr>
+      <tr><td class="cmd">./run.sh check</td><td class="desc">Run one check right now (don't wait for cron)</td></tr>
+      <tr><td class="cmd">./run.sh notify-test</td><td class="desc">Fire a one-off test notification</td></tr>
+      <tr><td class="cmd">./run.sh cron-uninstall</td><td class="desc">Stop and remove the background check</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background: var(--amber);"></span>Troubleshooting OAuth errors</h2>
+    <ul>
+      <li><span class="err">"We've encountered an error. Try again later."</span> — almost always a redirect URI mismatch. Re-open your integration at developer.webex.com/my-apps and confirm the Redirect URI is <em>exactly</em> <code>http://localhost:8734/</code> (note the trailing slash), then save and retry.</li>
+      <li><span class="err">"The requested scope is invalid."</span> — go back to the integration's Scopes section and make sure all three are checked: <code>spark:messages_read</code>, <code>spark:rooms_read</code>, <code>spark:people_read</code>. Save, then retry.</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">
+    Each person registers their own Webex Integration and keeps their own tokens under <code>~/.webex_notifier/</code> — nothing here is shared between colleagues, and there's nothing sensitive in this folder to protect when you pass it along.
+  </div>
+
+  <div class="author-note">
+    Built by Tolga Tohumcu · <a href="mailto:ttohumcu@cisco.com">ttohumcu@cisco.com</a>
+  </div>
+
 </div>
-
-<h2>Everyday commands</h2>
-<table>
-  <tr><td class="cmd">./run.sh status</td><td>Show auth + cron state</td></tr>
-  <tr><td class="cmd">./run.sh doctor</td><td>Diagnose and fix problems interactively</td></tr>
-  <tr><td class="cmd">./run.sh check</td><td>Run one check right now (don't wait for cron)</td></tr>
-  <tr><td class="cmd">./run.sh notify-test</td><td>Fire a one-off test notification</td></tr>
-  <tr><td class="cmd">./run.sh cron-uninstall</td><td>Stop and remove the background check</td></tr>
-</table>
-
-<h2>Troubleshooting OAuth errors</h2>
-<ul>
-  <li><strong>"We've encountered an error. Try again later."</strong> &mdash; almost always a redirect URI mismatch. Re-open your integration at developer.webex.com/my-apps and confirm the Redirect URI is <em>exactly</em> <code>http://localhost:8734/</code> (note the trailing slash), then save and retry.</li>
-  <li><strong>"The requested scope is invalid."</strong> &mdash; go back to the integration's Scopes section and make sure all three are checked: <code>spark:messages_read</code>, <code>spark:rooms_read</code>, <code>spark:people_read</code>. Save, then retry.</li>
-</ul>
-
-<div class="note">
-  Each person registers their own Webex Integration and keeps their own tokens under <code>~/.webex_notifier/</code> &mdash; nothing here is shared between colleagues, and there's nothing sensitive in this folder to protect when you pass it along.
-</div>
-
 </body>
 </html>
