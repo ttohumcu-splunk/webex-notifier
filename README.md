@@ -56,20 +56,21 @@ it interactively — no README reading required:
 
 ```bash
 cd webex-notifier   # wherever you cloned/unzipped it
-git pull            # or re-download the zip and unzip it over the old folder
-./run.sh
+./run.sh upgrade
 ```
 
-Your Webex tokens, app config, and watermark all live under
-`~/.webex_notifier/`, completely separate from the repo folder — upgrading
-just reinstalls the package into the existing venv. It skips the setup
-wizard entirely as long as you're already authenticated, so there's no
-re-registering the integration, re-login, or re-approving scopes.
+Pulls the latest code (`git pull` if you cloned it, or a fresh download
+unpacked in place if you started from the zip) and reinstalls it into the
+existing venv. Your Webex tokens, app config, and watermark all live under
+`~/.webex_notifier/`, completely separate from the repo folder, so upgrading
+never touches them — no re-registering the integration, re-login, or
+re-approving scopes.
 
 ## Commands
 
 ```bash
 ./run.sh                    # no args: self-driving setup/status, does the right thing
+./run.sh upgrade            # pull the latest code and reinstall (keeps your auth/tokens)
 ./run.sh setup              # one-time auth + cron install
 ./run.sh check              # run one check right now (what cron calls)
 ./run.sh status             # show auth state + whether cron is installed

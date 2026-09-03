@@ -15,6 +15,20 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="$HOME/.webex_notifier/venv"
 PYTHON_VERSION="3.12"
+REPO_TARBALL_URL="https://github.com/ttohumcu-splunk/webex-notifier/archive/refs/heads/main.tar.gz"
+
+if [ "${1:-}" = "upgrade" ]; then
+    if [ -d "$SCRIPT_DIR/.git" ]; then
+        echo "Pulling latest changes ..."
+        git -C "$SCRIPT_DIR" pull
+    else
+        echo "No .git here (this was a zip install) -- downloading the latest copy and updating this folder in place ..."
+        curl -LsSf "$REPO_TARBALL_URL" | tar -xz -C "$SCRIPT_DIR" --strip-components=1
+    fi
+    echo
+    shift
+    set -- status "$@"
+fi
 
 if ! command -v uv >/dev/null 2>&1; then
     echo "uv (the Python env manager this uses) was not found on this Mac."

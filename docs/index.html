@@ -207,7 +207,7 @@
 </style>
 </head>
 <body>
-<div class="version-tag">v0.1.0 &middot; updated 2026-09-03 15:22 EDT</div>
+<div class="version-tag">v0.1.0 &middot; updated 2026-09-03 15:30 EDT</div>
 <div class="wrap">
 
   <div class="brand-lockup">
@@ -341,14 +341,14 @@
   <div class="card">
     <h2><span class="dot" style="background: var(--blue);"></span>Upgrading</h2>
     <p style="margin: 0 0 10px; font-size: 14px; color: var(--text-dim);">
-      Already installed? Pull the latest code (or re-download the zip and unzip it over the old folder), then just re-run the installer:
+      Already installed? One command, from inside the folder:
     </p>
     <table>
-      <tr><td class="cmd">git pull && ./run.sh</td><td class="desc">Update code and reinstall into the existing venv</td></tr>
+      <tr><td class="cmd">./run.sh upgrade</td><td class="desc">Pull/redownload the latest code and reinstall into the existing venv</td></tr>
     </table>
     <div class="note good">
       <span class="icon">✅</span>
-      <span>Your Webex tokens, app config, and watermark live under <code>~/.webex_notifier/</code>, separate from the repo folder — upgrading never touches them. The setup wizard is skipped entirely once you're already authenticated, so there's no re-registering the integration, re-login, or re-approving scopes.</span>
+      <span>Works whether you originally cloned it (does a <code>git pull</code>) or started from the zip (redownloads and unpacks in place). Your Webex tokens, app config, and watermark live under <code>~/.webex_notifier/</code>, separate from the repo folder — upgrading never touches them, so there's no re-registering the integration, re-login, or re-approving scopes.</span>
     </div>
   </div>
 
