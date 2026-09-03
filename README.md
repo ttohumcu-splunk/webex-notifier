@@ -27,10 +27,11 @@ cd webex-notifier
 ./run.sh
 ```
 
-That's the only command anyone needs to run. `run.sh` needs nothing
-pre-installed — it bootstraps [`uv`](https://docs.astral.sh/uv/) via its
-official installer (a single prebuilt binary, no Xcode/Rust/Homebrew build
-chain) if it's not already on the machine. uv then creates a private virtualenv at
+That's the only command anyone needs to run — works on both Apple Silicon
+and Intel Macs. `run.sh` needs nothing pre-installed — it bootstraps
+[`uv`](https://docs.astral.sh/uv/) via its official installer (a single
+prebuilt binary per architecture, no Xcode/Rust/Homebrew build chain) if
+it's not already on the machine. uv then creates a private virtualenv at
 `~/.webex_notifier/venv` — fetching its own Python 3.12 for it, with no
 dependency on the machine's system `python3` — and installs this package and
 its one dependency into it (falling back to the public PyPI if a corporate
