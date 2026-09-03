@@ -41,16 +41,20 @@
   .subtitle { text-align: center; color: var(--text-dim); font-size: 15px; margin: 0 0 18px; }
 
   .slogan {
-    text-align: center;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin: 0 0 24px;
+  }
+  .slogan-text {
     font-size: 20px;
     font-weight: 800;
-    margin: 0 0 24px;
     background: linear-gradient(90deg, var(--blue), var(--mint));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     letter-spacing: -0.01em;
   }
+  .beer-icon { width: 20px; height: 38px; flex: 0 0 auto; }
+  .beer-icon.flip { transform: scaleX(-1); }
 
   .badge-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
   .badge {
@@ -188,7 +192,25 @@
   <h1>webex-notifier</h1>
   <div class="subtitle">Native macOS notifications for Webex DMs &amp; @mentions — no Slack, no admin approval, nothing to keep open.</div>
 
-  <div class="slogan">🍺 Three Steps and a Beer</div>
+  <div class="slogan">
+    <svg class="beer-icon" viewBox="0 0 24 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="9" y="0" width="6" height="3" rx="1" fill="#cbd5e1"/>
+      <rect x="9.5" y="3" width="5" height="6" fill="#78350f"/>
+      <path d="M9.5 9c0 0-3.5 2-3.5 6v23c0 2.2 1.8 4 4 4h4c2.2 0 4-1.8 4-4V15c0-4-3.5-6-3.5-6z" fill="#d97706" stroke="#92400e" stroke-width="0.6"/>
+      <rect x="6" y="21" width="12" height="10" rx="1.2" fill="#fef3c7"/>
+      <rect x="12.6" y="6" width="1" height="4" fill="#fbbf24"/>
+      <rect x="7.6" y="13" width="1.6" height="21" rx="0.8" fill="#f59e0b" opacity="0.55"/>
+    </svg>
+    <span class="slogan-text">Three Steps and a Beer</span>
+    <svg class="beer-icon flip" viewBox="0 0 24 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="9" y="0" width="6" height="3" rx="1" fill="#cbd5e1"/>
+      <rect x="9.5" y="3" width="5" height="6" fill="#78350f"/>
+      <path d="M9.5 9c0 0-3.5 2-3.5 6v23c0 2.2 1.8 4 4 4h4c2.2 0 4-1.8 4-4V15c0-4-3.5-6-3.5-6z" fill="#d97706" stroke="#92400e" stroke-width="0.6"/>
+      <rect x="6" y="21" width="12" height="10" rx="1.2" fill="#fef3c7"/>
+      <rect x="12.6" y="6" width="1" height="4" fill="#fbbf24"/>
+      <rect x="7.6" y="13" width="1.6" height="21" rx="0.8" fill="#f59e0b" opacity="0.55"/>
+    </svg>
+  </div>
 
   <div class="badge-row">
     <span class="badge">🍏 macOS only</span>
