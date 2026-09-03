@@ -1,8 +1,10 @@
 # webex-notifier
 
-Pops a native macOS notification whenever you get a Webex direct message or
-@mention. Runs entirely from a personal crontab entry (checks every minute) —
-no Claude Code session, laptop app, or anything else needs to stay open.
+Webex doesn't reliably alert you to new DMs and @mentions — especially while
+you're in a meeting — nothing like Slack's notifications. This closes that
+gap: a personal crontab entry (checks every minute) pops a native macOS
+notification the instant one lands, with nothing else that needs to stay
+open.
 
 Slack delivery is fully implemented but currently disabled (see
 [Slack (disabled for now)](#slack-disabled-for-now) below) — Splunk's
