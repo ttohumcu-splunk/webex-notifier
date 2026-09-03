@@ -52,6 +52,20 @@ it interactively — no README reading required:
 4. Fires a test macOS notification.
 5. Installs a personal crontab entry that checks every minute.
 
+## Upgrading
+
+```bash
+cd webex-notifier   # wherever you cloned/unzipped it
+git pull            # or re-download the zip and unzip it over the old folder
+./run.sh
+```
+
+Your Webex tokens, app config, and watermark all live under
+`~/.webex_notifier/`, completely separate from the repo folder — upgrading
+just reinstalls the package into the existing venv. It skips the setup
+wizard entirely as long as you're already authenticated, so there's no
+re-registering the integration, re-login, or re-approving scopes.
+
 ## Commands
 
 ```bash

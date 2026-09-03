@@ -207,7 +207,7 @@
 </style>
 </head>
 <body>
-<div class="version-tag">v0.1.0 &middot; updated 2026-09-03 15:12 EDT</div>
+<div class="version-tag">v0.1.0 &middot; updated 2026-09-03 15:22 EDT</div>
 <div class="wrap">
 
   <div class="brand-lockup">
@@ -336,6 +336,20 @@
       <tr><td class="cmd">./run.sh notify-test</td><td class="desc">Fire a one-off test notification</td></tr>
       <tr><td class="cmd">./run.sh cron-uninstall</td><td class="desc">Stop and remove the background check</td></tr>
     </table>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot" style="background: var(--blue);"></span>Upgrading</h2>
+    <p style="margin: 0 0 10px; font-size: 14px; color: var(--text-dim);">
+      Already installed? Pull the latest code (or re-download the zip and unzip it over the old folder), then just re-run the installer:
+    </p>
+    <table>
+      <tr><td class="cmd">git pull && ./run.sh</td><td class="desc">Update code and reinstall into the existing venv</td></tr>
+    </table>
+    <div class="note good">
+      <span class="icon">✅</span>
+      <span>Your Webex tokens, app config, and watermark live under <code>~/.webex_notifier/</code>, separate from the repo folder — upgrading never touches them. The setup wizard is skipped entirely once you're already authenticated, so there's no re-registering the integration, re-login, or re-approving scopes.</span>
+    </div>
   </div>
 
   <div class="card">
