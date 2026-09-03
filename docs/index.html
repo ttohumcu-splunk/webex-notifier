@@ -261,12 +261,12 @@
   <div class="card step-card">
     <h2><span class="step-num">1</span>Requirements</h2>
     <ul>
-      <li>A Mac with Terminal access. <code>python3</code> 3.9+ is usually already on it.</li>
+      <li>A Mac with Terminal access. No Python install needed beforehand.</li>
       <li>Your own Webex/Cisco login. That's it — no shared secrets, no IT ticket.</li>
     </ul>
     <div class="note good">
       <span class="icon">✅</span>
-      <span><strong>Missing python3? The script installs it for you.</strong> If it's not already on the Mac, <code>run.sh</code> offers to install it via Homebrew (bootstrapping Homebrew itself first if needed) — along with the private virtual environment and its one dependency (<code>requests</code>). Nothing to <code>pip install</code> or <code>brew install</code> by hand.</span>
+      <span><strong>Nothing to install by hand.</strong> <code>run.sh</code> bootstraps <a href="https://docs.astral.sh/uv/" style="color: var(--mint);">uv</a> (via Homebrew, or its official installer if Homebrew isn't present) if it's missing, then uv creates the private virtual environment — fetching its own Python if needed — and installs the one dependency (<code>requests</code>). No <code>pip install</code> or <code>brew install python3</code> required.</span>
     </div>
   </div>
 
