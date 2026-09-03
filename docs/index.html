@@ -19,7 +19,10 @@
   body {
     margin: 0;
     min-height: 100vh;
-    background: var(--bg);
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(96,165,250,0.14), transparent),
+      radial-gradient(ellipse 700px 400px at 90% 10%, rgba(232,121,249,0.08), transparent),
+      var(--bg);
     color: var(--text);
     padding: 40px 20px 60px;
   }
@@ -35,7 +38,19 @@
   }
 
   h1 { text-align: center; font-size: 30px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.01em; }
-  .subtitle { text-align: center; color: var(--text-dim); font-size: 15px; margin: 0 0 20px; }
+  .subtitle { text-align: center; color: var(--text-dim); font-size: 15px; margin: 0 0 18px; }
+
+  .slogan {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    margin: 0 0 24px;
+    background: linear-gradient(90deg, var(--blue), var(--mint));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.01em;
+  }
 
   .badge-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
   .badge {
@@ -53,13 +68,23 @@
     border-radius: 16px;
     padding: 20px 24px;
     margin-bottom: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.22);
   }
   .card h2 {
-    display: flex; align-items: center; gap: 8px;
+    display: flex; align-items: center; gap: 10px;
     font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
     color: var(--text-dim); margin: 0 0 14px;
   }
   .card h2 .dot { width: 8px; height: 8px; border-radius: 999px; flex: 0 0 auto; }
+
+  .step-card { border-color: rgba(96,165,250,0.25); }
+  .step-num {
+    width: 26px; height: 26px; border-radius: 999px; flex: 0 0 auto;
+    background: linear-gradient(135deg, var(--blue), var(--mint));
+    color: #0b1120; font-weight: 900; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-connector { width: 2px; height: 18px; background: var(--border); margin: 0 auto; }
 
   ul, ol { margin: 0; padding-left: 20px; }
   li { margin-bottom: 8px; line-height: 1.5; font-size: 14px; }
@@ -101,6 +126,9 @@
   .note .icon { flex: 0 0 auto; }
   .note strong { color: var(--amber); }
 
+  .note.good { border-left-color: var(--mint); background: rgba(110,231,183,0.08); }
+  .note.good strong { color: var(--mint); }
+
   table { width: 100%; border-collapse: collapse; }
   tr { border-bottom: 1px solid var(--border); }
   tr:last-child { border-bottom: none; }
@@ -127,15 +155,15 @@
 
   .download-btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 20px; border-radius: 999px;
+    padding: 12px 22px; border-radius: 999px;
     border: 1px solid var(--blue);
-    background: rgba(96,165,250,0.12);
+    background: rgba(96,165,250,0.14);
     color: var(--blue);
     font-size: 14px; font-weight: 800;
     text-decoration: none;
     transition: background 0.15s ease, transform 0.15s ease;
   }
-  .download-btn:hover { background: rgba(96,165,250,0.2); transform: translateY(-1px); }
+  .download-btn:hover { background: rgba(96,165,250,0.24); transform: translateY(-1px); }
 
   .author-note {
     text-align: center;
@@ -160,34 +188,46 @@
   <h1>webex-notifier</h1>
   <div class="subtitle">Native macOS notifications for Webex DMs &amp; @mentions — no Slack, no admin approval, nothing to keep open.</div>
 
+  <div class="slogan">🍺 Three Steps and a Beer</div>
+
   <div class="badge-row">
     <span class="badge">🍏 macOS only</span>
     <span class="badge">⏱ ~2 min setup</span>
     <span class="badge">🔒 no shared secrets</span>
   </div>
 
-  <div style="text-align:center; margin-bottom: 28px;">
-    <a class="download-btn" href="webex-notifier.zip" download>⬇ Download webex-notifier.zip</a>
-  </div>
-
-  <div class="card">
-    <h2><span class="dot" style="background: var(--mint);"></span>Requirements</h2>
+  <div class="card step-card">
+    <h2><span class="step-num">1</span>Requirements</h2>
     <ul>
-      <li>A Mac with Terminal access. <code>python3</code> 3.9+ is usually already on it — if not, <code>run.sh</code> will offer to install it for you via Homebrew (installing Homebrew first if needed).</li>
+      <li>A Mac with Terminal access. <code>python3</code> 3.9+ is usually already on it.</li>
       <li>Your own Webex/Cisco login. That's it — no shared secrets, no IT ticket.</li>
     </ul>
-    <div class="note">
+    <div class="note good">
       <span class="icon">✅</span>
-      <span>Everything else — Python itself if it's missing, the private virtual environment, and the one Python dependency (<code>requests</code>) — is installed automatically by <code>run.sh</code> on first run. Nothing to <code>pip install</code> or <code>brew install</code> by hand.</span>
+      <span><strong>Missing python3? The script installs it for you.</strong> If it's not already on the Mac, <code>run.sh</code> offers to install it via Homebrew (bootstrapping Homebrew itself first if needed) — along with the private virtual environment and its one dependency (<code>requests</code>). Nothing to <code>pip install</code> or <code>brew install</code> by hand.</span>
     </div>
   </div>
 
-  <div class="card">
-    <h2><span class="dot" style="background: var(--blue);"></span>Install</h2>
+  <div class="step-connector"></div>
+
+  <div class="card step-card">
+    <h2><span class="step-num">2</span>Download the zip</h2>
+    <p style="margin: 0 0 16px; font-size: 14px; color: var(--text-dim);">
+      Grab the package below — it's just source code, no secrets inside. Unzip it anywhere.
+    </p>
+    <div style="text-align:center;">
+      <a class="download-btn" href="webex-notifier.zip" download>⬇ Download webex-notifier.zip</a>
+    </div>
+  </div>
+
+  <div class="step-connector"></div>
+
+  <div class="card step-card">
+    <h2><span class="step-num">3</span>Install</h2>
     <ol class="step-list">
-      <li>Copy or clone this folder anywhere, then in Terminal: <code>cd webex-notifier</code></li>
+      <li>In Terminal: <code>cd webex-notifier</code> (wherever you unzipped it)</li>
       <li>Run: <code>./run.sh</code></li>
-      <li>It sets itself up automatically and interactively, in this exact order — <strong>every step below happens on its own via the script</strong>, nothing to do manually except paste back the two values it asks for:
+      <li>That's it — <strong>the script executes everything below automatically</strong>, nothing to do manually except paste back the two values it asks for:
         <ul class="sub">
           <li><strong>Register your own Webex Integration</strong> (~30 sec, one-time). Opens <code>developer.webex.com/my-apps/new/integration</code> and tells you to:
             <ul class="sub">
