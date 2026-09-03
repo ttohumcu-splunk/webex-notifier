@@ -38,7 +38,17 @@
   }
 
   h1 { text-align: center; font-size: 30px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.01em; }
-  .subtitle { text-align: center; color: var(--text-dim); font-size: 15px; margin: 0 0 18px; }
+  .subtitle { text-align: center; color: var(--text-dim); font-size: 15px; margin: 0 0 14px; }
+  .hook {
+    text-align: center;
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 auto 22px;
+    max-width: 560px;
+    line-height: 1.5;
+  }
+  .hook .q { color: var(--text-dim); font-weight: 500; }
 
   .slogan {
     display: flex; align-items: center; justify-content: center; gap: 12px;
@@ -191,6 +201,8 @@
 
   <h1>webex-notifier</h1>
   <div class="subtitle">Native macOS notifications for Webex DMs &amp; @mentions — no Slack, no admin approval, nothing to keep open.</div>
+
+  <div class="hook"><span class="q">Tired of missing Webex DMs and @mentions because the app was buried behind ten other windows?</span> This fixes that — the instant one lands, it pops up right in your Mac's notification center.</div>
 
   <div class="slogan">
     <svg class="beer-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
