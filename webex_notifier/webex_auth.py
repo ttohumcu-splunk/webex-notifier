@@ -31,7 +31,7 @@ def run_login(cisco_email: str) -> dict:
     if not client_id or not client_secret:
         raise SystemExit(
             "Missing webex_client_id/webex_client_secret in ~/.webex_notifier/app_config.json.\n"
-            "Ask whoever registered the org's Webex Integration for this file (see README)."
+            "Run 'webex-notifier setup' to register your own Webex Integration first."
         )
 
     state = secrets.token_urlsafe(16)

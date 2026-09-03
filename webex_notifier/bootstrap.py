@@ -25,12 +25,12 @@ def ensure_webex_app_registered() -> dict:
         print("Webex Integration already configured, skipping registration.")
         return app_cfg
 
-    print("\n=== Step 1: Register a Webex Integration (one-time, for everyone in the org) ===")
+    print("\n=== Step 1: Register your own Webex Integration (one-time, ~30 seconds) ===")
     print("Opening developer.webex.com/my-apps ...")
     webbrowser.open(WEBEX_NEW_INTEGRATION_URL)
     print(
         "\nIn the page that just opened:\n"
-        "  1. Name it anything, e.g. 'Slack Alert Bridge'.\n"
+        "  1. Name it anything, e.g. 'Webex Mac Alerts'.\n"
         "  2. Icon: pick any, doesn't matter.\n"
         "  3. Redirect URI: http://localhost:8734/\n"
         "  4. Scopes: check spark:messages_read, spark:rooms_read, spark:people_read\n"
@@ -44,8 +44,7 @@ def ensure_webex_app_registered() -> dict:
     app_cfg["webex_client_id"] = client_id
     app_cfg["webex_client_secret"] = client_secret
     save_app_config(app_cfg)
-    print("Saved. This step never needs to happen again for anyone else in the org --")
-    print("just share the resulting ~/.webex_notifier/app_config.json file with them.")
+    print("Saved to ~/.webex_notifier/app_config.json on this machine -- never needed again here.")
     return app_cfg
 
 

@@ -187,11 +187,24 @@
     <ol class="step-list">
       <li>Copy or clone this folder anywhere, then in Terminal: <code>cd webex-notifier</code></li>
       <li>Run: <code>./run.sh</code></li>
-      <li>It sets itself up automatically and interactively — just follow the prompts:
+      <li>It sets itself up automatically and interactively — just follow the prompts, in this exact order:
         <ul class="sub">
-          <li>Opens developer.webex.com to register <strong>your own personal</strong> Webex Integration (~30 sec: name it anything, set Redirect URI to exactly <code>http://localhost:8734/</code>, check the 3 scopes shown on screen, paste back the Client ID/Secret it gives you).</li>
-          <li>Opens a browser to sign in to Webex with your Cisco email.</li>
-          <li>Fires a test notification, then installs a personal cron job that checks every minute.</li>
+          <li><strong>Step 1 — Register your own Webex Integration</strong> (~30 sec, one-time). Opens <code>developer.webex.com/my-apps/new/integration</code> and tells you to:
+            <ul class="sub">
+              <li>Name it anything, e.g. <code>Webex Mac Alerts</code>.</li>
+              <li>Icon: pick any, doesn't matter.</li>
+              <li>Redirect URI: exactly <code>http://localhost:8734/</code></li>
+              <li>Scopes: check <code>spark:messages_read</code>, <code>spark:rooms_read</code>, <code>spark:people_read</code></li>
+              <li>Click <strong>Add Integration</strong>.</li>
+            </ul>
+            You'll land on a page showing a Client ID and Client Secret — press Enter in Terminal, then paste each one back when prompted. It's saved to <code>~/.webex_notifier/app_config.json</code> on your machine and never asked for again.
+          </li>
+          <li><strong>Your Cisco/Webex login email</strong> — typed straight into Terminal when prompted.</li>
+          <li><strong>Browser sign-in</strong> — opens Webex's own login page to authenticate as that email; a local listener on <code>localhost:8734</code> catches the redirect and exchanges it for tokens automatically.</li>
+          <li><strong>Watermark set to now</strong> — so only new activity from this point on triggers an alert, not your whole message history.</li>
+          <li><strong>Cron job installed</strong> — a personal crontab entry that runs <code>webex-notifier check</code> every minute, logging to <code>~/.webex_notifier/monitor.log</code>.</li>
+          <li><strong>Test notification fired</strong> — a native macOS banner confirming notifications work.</li>
+          <li><strong>Live check run once</strong> — checks right away for any real DMs/mentions instead of waiting for the first cron tick.</li>
         </ul>
       </li>
     </ol>
